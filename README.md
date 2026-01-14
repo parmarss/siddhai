@@ -1,2 +1,2 @@
 # siddhai
-For temp site
+For initial site
