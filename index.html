@@ -2,30 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Siddh.ai by Lawraj | Litigation Analytics Platform</title>
+  <title>Siddh.ai - Lawyer Selection Powered by Evidence</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Siddh.ai is an evidence-based lawyer selection and litigation analytics platform developed by Lawraj.">
+  <meta name="description" content="Siddh.ai is an evidence-based lawyer selection platform. Check lawyer court records, compare options and choose with confidence.">
   <style>
+    /* --- VARIABLES & RESET --- */
     :root {
       --primary: #2563eb;
+      --primary-dark: #1d4ed8;
       --text-main: #111827;
       --text-muted: #6b7280;
-      --bg: #f3f4f6;
-      --card-bg: #ffffff;
+      --bg-light: #f9fafb;
+      --white: #ffffff;
+      --border: #e5e7eb;
     }
-
+    * { box-sizing: border-box; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: var(--bg);
       color: var(--text-main);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
+      background: var(--white);
+      line-height: 1.5;
     }
 
-    /* DISCLAIMER BANNER - CRITICAL FOR AVOIDING FLAGS */
+    /* --- UTILITIES --- */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .text-center { text-align: center; }
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s;
+      font-size: 15px;
+    }
+    .btn-primary { background: var(--primary); color: white; border: none; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-white { background: white; color: var(--primary); }
+    .btn-white:hover { background: #f3f4f6; }
+    
+    /* --- DISCLAIMER (ANTI-FLAGGING) --- */
     .gov-disclaimer {
       background-color: #fef3c7;
       color: #92400e;
@@ -36,121 +54,154 @@
       border-bottom: 1px solid #fcd34d;
     }
 
-    .wrapper {
-      flex: 1;
+    /* --- NAVBAR --- */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { font-size: 24px; font-weight: 700; color: var(--primary); text-decoration: none; }
+    .nav-links { display: flex; gap: 30px; }
+    .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 500; font-size: 15px; }
+    .nav-links a:hover { color: var(--primary); }
+
+    /* --- HERO SECTION --- */
+    .hero {
+      background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%); /* Blue gradient from PDF */
+      padding: 80px 0 100px 0;
+      color: white;
+      text-align: center;
+    }
+    .hero h1 { font-size: 48px; font-weight: 700; margin-bottom: 16px; line-height: 1.1; }
+    .hero p { font-size: 20px; opacity: 0.9; margin-bottom: 32px; font-weight: 300; }
+    .hero-badges {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      font-size: 14px;
+      opacity: 0.8;
+      margin-top: 40px;
+    }
+    .hero-cta-group { display: flex; gap: 16px; justify-content: center; }
+
+    /* --- STATS BAR --- */
+    .stats-bar {
+      background: #1e3a8a; /* Dark blue */
+      color: white;
+      padding: 24px 0;
+    }
+    .stats-grid {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+      text-align: center;
+    }
+    .stat-item strong { display: block; font-size: 24px; font-weight: 700; }
+    .stat-item span { font-size: 13px; opacity: 0.8; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* --- HOW IT WORKS --- */
+    .section { padding: 80px 0; }
+    .section-title { font-size: 32px; font-weight: 700; margin-bottom: 16px; text-align: center; }
+    .section-sub { text-align: center; color: var(--text-muted); max-width: 600px; margin: 0 auto 60px auto; }
+    
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+    }
+    .step-card {
+      background: var(--bg-light);
+      padding: 32px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .step-num {
+      background: #dbeafe;
+      color: var(--primary);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px;
-    }
-
-    .card {
-      max-width: 600px;
-      width: 100%;
-      background: var(--card-bg);
-      border-radius: 12px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      padding: 40px;
-      border: 1px solid #e5e7eb;
-    }
-
-    /* Header Section */
-    .header {
-      border-bottom: 1px solid #e5e7eb;
-      padding-bottom: 20px;
-      margin-bottom: 24px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 28px;
       font-weight: 700;
-      letter-spacing: -0.025em;
+      margin-bottom: 20px;
     }
+    .step-card h3 { font-size: 20px; margin-bottom: 12px; }
+    .step-card p { color: var(--text-muted); font-size: 15px; }
 
-    .brand-subtitle {
-      color: var(--text-muted);
-      font-size: 16px;
-      margin-top: 4px;
-    }
-
-    /* Content Section */
-    h2 {
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-      font-weight: 600;
-      margin-top: 24px;
-      margin-bottom: 12px;
-    }
-
-    p {
-      line-height: 1.6;
-      margin: 8px 0;
-      font-size: 15px;
-    }
-
-    .address-block {
-      background: #f9fafb;
-      padding: 16px;
-      border-radius: 8px;
-      font-size: 14px;
-      color: #374151;
-      margin-top: 8px;
-    }
-
-    a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    /* Footer / Legal */
-    .footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .footer a {
-      color: var(--text-muted);
-      text-decoration: underline;
-    }
-
-    /* Verification Badge */
-    .badge {
-      display: inline-flex;
+    /* --- FEATURES / VISUALS --- */
+    .feature-row {
+      display: flex;
       align-items: center;
-      margin-top: 20px;
-      padding: 6px 12px;
-      border-radius: 9999px;
-      background: #eff6ff;
-      color: #1e40af;
-      font-size: 12px;
-      font-weight: 500;
+      gap: 60px;
+      margin-bottom: 100px;
     }
+    .feature-row.reverse { flex-direction: row-reverse; }
+    .feature-text { flex: 1; }
+    .feature-text h2 { font-size: 30px; font-weight: 700; margin-bottom: 16px; }
+    .feature-text p { color: var(--text-muted); font-size: 16px; margin-bottom: 24px; }
     
-    .contact-btn {
-        display: inline-block;
-        background-color: var(--primary);
-        color: white;
-        padding: 8px 16px;
-        border-radius: 6px;
-        margin-top: 10px;
-        font-size: 14px;
-        font-weight: 500;
-    }
-    .contact-btn:hover {
-        background-color: #1d4ed8;
-        text-decoration: none;
+    .feature-visual {
+      flex: 1;
+      background: white;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px -5px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      padding: 30px;
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
+    /* CSS CHARTS (Placeholder for images) */
+    .chart-bar {
+      height: 20px;
+      background: #eff6ff;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      position: relative;
+    }
+    .chart-fill {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 10px;
+    }
+    .chart-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; font-weight: 500;}
+
+    .table-mock { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .table-mock th { text-align: left; color: var(--text-muted); border-bottom: 1px solid var(--border); padding: 10px; }
+    .table-mock td { border-bottom: 1px solid var(--border); padding: 10px; }
+    .table-mock tr:last-child td { border-bottom: none; }
+
+    /* --- FOOTER --- */
+    .footer {
+      background: white;
+      border-top: 1px solid var(--border);
+      padding: 60px 0;
+      font-size: 14px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+    }
+    .footer-col h3 { font-weight: 700; color: var(--text-muted); margin-bottom: 20px; font-size: 13px; text-transform: uppercase; }
+    .footer-col ul { list-style: none; padding: 0; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a { text-decoration: none; color: var(--text-main); }
+    .footer-col a:hover { color: var(--primary); }
+    
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 32px; }
+      .feature-row, .feature-row.reverse { flex-direction: column; }
+      .navbar { flex-direction: column; gap: 15px; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -159,51 +210,188 @@
     Notice: This is a private analytics platform. Not affiliated with the Supreme Court of India or any government body.
   </div>
 
-  <div class="wrapper">
-    <div class="card">
-      <div class="header">
-        <h1>Siddh.ai</h1>
-        <div class="brand-subtitle">Powered by Lawraj</div>
+  <div class="container">
+    <nav class="navbar">
+      <a href="index.html" class="logo">siddh.ai</a>
+      <div class="nav-links">
+        <a href="pricing.html">Pricing</a>
+        <a href="#">Methodology</a>
+        <a href="#">Blog</a>
+        <a href="#" style="font-weight: 600;">Login/Signup</a>
       </div>
-
-      <p>
-        <strong>Siddh.ai</strong> is a litigation analytics platform that provides evidence-based lawyer selection and workflow tools for law firms and businesses. We leverage data to bring transparency to the legal ecosystem.
-      </p>
-
-      <h2>Corporate Information</h2>
-      <p><strong>Legal Entity Name:</strong> Lawraj Private Limited</p>
-      <p><strong>Nature of Business:</strong> Legal Technology / SaaS</p>
-      
-      <h2>Registered Address</h2>
-      <div class="address-block">
-        Seat No. 53M, 1st floor,<br>
-        Plot No. 25, Phase 1,<br>
-        Industrial Area Chandigarh,<br>
-        Chandigarh - 160002, India
-      </div>
-
-      <h2>Services</h2>
-      <p>Explore our analytics packages and lawyer selection tools.</p>
-      <a href="pricing.html" class="contact-btn">View Pricing & Plans</a>
-
-      <h2>Contact Us</h2>
-      <p>For support, legal inquiries, or verification purposes:</p>
-      <p><strong>Email:</strong> <a href="mailto:admin@lawraj.com">admin@lawraj.com</a></p>
-      
-      <h2 id="privacy">Privacy & Terms</h2>
-      <p style="font-size: 13px; color: #666;">
-        Siddh.ai (Lawraj) is committed to protecting your data. We use your contact information solely for account authentication (OTP) and critical service updates. We do not sell data to third parties. By using our service, you agree to receive One-Time Passwords (OTPs) for verification.
-      </p>
-
-      <div class="badge">
-        Official Verified Business Page
-      </div>
-    </div>
+    </nav>
   </div>
 
+  <header class="hero">
+    <div class="container">
+      <h1>Avoid costly mistakes<br>before you hire a lawyer</h1>
+      <p>Check lawyer court records, compare options and choose with confidence.</p>
+      
+      <div class="hero-cta-group">
+        <a href="pricing.html" class="btn btn-white">View Plans</a>
+        <a href="#" class="btn btn-primary" style="border:1px solid white;">Browse Profiles</a>
+      </div>
+
+      <div class="hero-badges">
+        <span>Built on public court data</span> • 
+        <span>Designed for transparency</span> • 
+        <span>No commissions from lawyers</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="stats-bar">
+    <div class="container stats-grid">
+      <div class="stat-item">
+        <strong>200k+</strong> <span>Supreme Court Cases</span>
+      </div>
+      <div class="stat-item">
+        <strong>2M+</strong> <span>Orders Parsed</span>
+      </div>
+      <div class="stat-item">
+        <strong>900+</strong> <span>Judges Profiled</span>
+      </div>
+      <div class="stat-item">
+        <strong>75k+</strong> <span>Advocates Covered</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">How it works</h2>
+      <p class="section-sub">Data-driven legal insights for confident decision making.</p>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <h3>Get Access</h3>
+          <p>Buy a one-time pass or a pack of credits to unlock detailed Supreme Court lawyer profiles and analytics.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <h3>Explore Lawyers</h3>
+          <p>Select your type of case and browse court verified track records, outcomes, reliefs, and appearances.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <h3>Contact Directly</h3>
+          <p>Shortlist lawyers and reach out to them on your own. We do not arrange calls or take commissions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      
+      <div class="feature-row">
+        <div class="feature-text">
+          <h2>Final Outcomes & Reliefs</h2>
+          <p>See how a lawyer's cases finally conclude in the Supreme Court. We break down final judgments into full, partial, and procedural reliefs.</p>
+          <ul style="color: #4b5563; padding-left: 20px; line-height: 1.8;">
+            <li>Win/Loss Analysis</li>
+            <li>Relief specific breakdown</li>
+            <li>Neutral outcomes identified</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <div style="margin-bottom:20px;">
+            <div class="chart-label"><span>Win / Relief Granted</span> <span>52%</span></div>
+            <div class="chart-bar"><div class="chart-fill" style="width: 52%;"></div></div>
+          </div>
+          <div style="margin-bottom:20px;">
+            <div class="chart-label"><span>Neutral / Procedural</span> <span>18%</span></div>
+            <div class="chart-bar"><div class="chart-fill" style="width: 18%; background:#9ca3af;"></div></div>
+          </div>
+          <div>
+            <div class="chart-label"><span>Dismissed / Loss</span> <span>30%</span></div>
+            <div class="chart-bar"><div class="chart-fill" style="width: 30%; background:#1e3a8a;"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-row reverse">
+        <div class="feature-text">
+          <h2>Traceable to Original Orders</h2>
+          <p>Every metric on Siddh.ai links back to the court record—orders, judgments, and case details. You can verify every insight and explore the full story behind the data.</p>
+          <a href="pricing.html" class="btn btn-primary">See Pricing</a>
+        </div>
+        <div class="feature-visual">
+          <table class="table-mock">
+            <thead>
+              <tr>
+                <th>Parties</th>
+                <th>Diary No.</th>
+                <th>Order Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Ramanan vs State</strong><br><span style="color:#9ca3af; font-size:11px;">Criminal Appeal</span></td>
+                <td>2314/2025</td>
+                <td>31 Aug 2025</td>
+              </tr>
+              <tr>
+                <td><strong>Chennai Metro vs...</strong><br><span style="color:#9ca3af; font-size:11px;">Civil Appeal</span></td>
+                <td>2141/2025</td>
+                <td>12 Aug 2025</td>
+              </tr>
+              <tr>
+                <td><strong>Adani Power vs...</strong><br><span style="color:#9ca3af; font-size:11px;">Special Leave</span></td>
+                <td>1298/2024</td>
+                <td>04 May 2025</td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="text-align:center; margin-top:15px; color:#2563eb; font-size:13px; font-weight:600;">View Full Case Record →</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <footer class="footer">
-    &copy; 2026 Lawraj. All rights reserved.<br>
-    <a href="pricing.html">Pricing</a> | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a>
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <a href="#" class="logo" style="display:block; margin-bottom:15px;">siddh.ai</a>
+        <p style="color: #6b7280; line-height: 1.6; max-width: 250px;">
+          Data-driven legal insights for confident decision making.<br><br>
+          Part of Lawraj Pvt. Ltd.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About us</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Disclaimer</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">API</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container" style="margin-top: 40px; border-top: 1px solid #f3f4f6; padding-top: 20px; text-align: center; color: #9ca3af; font-size: 13px;">
+      &copy; 2026 Siddh. All rights reserved. Made for the legal community.
+    </div>
   </footer>
 
 </body>
