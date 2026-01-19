@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pricing - Siddh.ai</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* --- SHARED VARIABLES & RESET --- */
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --bg: #f9fafb;
+      --border: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    /* --- NAVIGATION --- */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 40px;
+      background: white;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 24px;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 500;
+      font-size: 15px;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .btn-login { font-weight: 600; }
+
+    /* --- HERO SECTION --- */
+    .hero {
+      background: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #60a5fa 100%);
+      padding: 80px 20px;
+      text-align: center;
+      color: white;
+    }
+    .hero h1 {
+      font-size: 42px;
+      margin: 0 0 16px 0;
+      font-weight: 700;
+    }
+    .hero p {
+      font-size: 20px;
+      margin: 0;
+      opacity: 0.95;
+      font-weight: 400;
+    }
+    .hero-features {
+      margin-top: 24px;
+      font-size: 14px;
+      opacity: 0.9;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      font-weight: 500;
+    }
+
+    /* --- PRICING CONTAINER --- */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .court-notice {
+      text-align: center;
+      margin-bottom: 50px;
+      font-size: 18px;
+      color: var(--text-main);
+    }
+
+    /* --- GRID LAYOUT --- */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto 60px auto;
+    }
+
+    /* --- CARDS --- */
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px -4px rgba(0, 0, 0, 0.1);
+    }
+    .card.popular {
+      border: 2px solid var(--primary);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+    }
+    
+    .plan-header { margin-bottom: 24px; }
+    .plan-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .badge {
+      background: #4f46e5;
+      color: white;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .price {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .price span {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+    .plan-desc {
+      font-size: 15px;
+      color: var(--text-main);
+      margin-bottom: 24px;
+      min-height: 48px; /* Alignment */
+    }
+
+    .features-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    ul.features-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px 0;
+      flex-grow: 1;
+    }
+    ul.features-list li {
+      margin-bottom: 10px;
+      padding-left: 24px;
+      position: relative;
+      font-size: 15px;
+      color: #374151;
+    }
+    ul.features-list li::before {
+      content: "✓";
+      color: var(--primary);
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+    ul.features-list li.limit {
+      color: var(--text-muted);
+    }
+    ul.features-list li.limit::before {
+      content: "•";
+      color: var(--text-muted);
+    }
+
+    .btn-plan {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      text-align: center;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: auto;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+    }
+    .btn-primary:hover { background-color: var(--primary-dark); }
+    .btn-outline {
+      background-color: white;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+    .btn-outline:hover { background-color: #eff6ff; }
+
+    /* --- NGO BANNER --- */
+    .ngo-banner {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      margin: 40px auto;
+      max-width: 800px;
+      color: #1e40af;
+    }
+    .ngo-banner a { color: #1e40af; font-weight: 600; }
+
+    /* --- CTA SECTION --- */
+    .cta-section {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 60px 20px;
+      margin-top: 60px;
+    }
+    .cta-section h2 { font-size: 28px; margin-bottom: 24px; }
+    .cta-btn {
+      background: var(--primary);
+      color: white;
+      padding: 12px 32px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    /* --- FAQ SECTION --- */
+    .faq-section {
+      max-width: 800px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+    .faq-section h2 { text-align: center; margin-bottom: 30px; }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+    .faq-question {
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+    .faq-answer {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    /* --- FOOTER --- */
+    .footer {
+      background: white;
+      border-top: 1px solid var(--border);
+      padding: 60px 20px;
+      font-size: 14px;
+    }
+    .footer-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+    }
+    .footer-col h3 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; padding: 0; margin: 0; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      color: var(--text-main);
+      text-decoration: none;
+    }
+    .footer-col a:hover { color: var(--primary); }
+    .copyright {
+      text-align: center;
+      margin-top: 60px;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    /* MOBILE RESPONSIVE */
+    @media (max-width: 768px) {
+      .navbar { flex-direction: column; gap: 16px; padding: 20px; }
+      .nav-links { gap: 20px; font-size: 14px; }
+      .hero h1 { font-size: 32px; }
+      .hero-features { flex-direction: column; gap: 8px; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">siddh.ai</a>
+    <div class="nav-links">
+      <a href="pricing.html" style="color: var(--primary);">Pricing</a>
+      <a href="#">Methodology</a>
+      <a href="#">Blog</a>
+      <a href="#" class="btn-login">Login/Signup</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h1>Avoid costly mistakes before you hire a lawyer</h1>
+    <p>Check lawyer court records, compare options and choose with confidence</p>
+    <div class="hero-features">
+      <span>Built on public court data</span>
+      <span>•</span>
+      <span>Designed for transparency</span>
+      <span>•</span>
+      <span>No commissions from lawyers</span>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="court-notice">
+      All plans available only for <strong>Supreme Court of India</strong>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="plan-header">
+          <div class="plan-title">Free 7-day Preview</div>
+          <div class="price">₹0</div>
+        </div>
+        <div class="plan-desc">Browse the platform with masked lawyer profiles (names hidden).</div>
+        <div class="features-label">You get</div>
+        <ul class="features-list">
+          <li>Browse lawyer listings (names masked)</li>
+          <li>View key metrics</li>
+          <li>Basic filters</li>
+          <li>7 days access</li>
+          <li class="limit">Lawyer names stay hidden</li>
+          <li class="limit">Detailed case list stays locked</li>
+        </ul>
+        <a href="#" class="btn-plan btn-outline">Join for Free</a>
+      </div>
+
+      <div class="card">
+        <div class="plan-header">
+          <div class="plan-title">Lawyer Packs</div>
+          <div class="price">₹1,999 <span>onwards</span></div>
+        </div>
+        <div class="plan-desc">Unlock 1 or 3 specific lawyers you've shortlisted for comparison.</div>
+        <div class="features-label">You get (unlocked profiles)</div>
+        <ul class="features-list">
+          <li>Unmask lawyer name & full profile</li>
+          <li>Full metrics + detailed stats</li>
+          <li>Complete case history</li>
+          <li>Compare unlocked lawyers</li>
+          <li class="limit">Credits expire 14 days after unlock</li>
+        </ul>
+        <a href="#" class="btn-plan btn-primary">Buy Now</a>
+      </div>
+
+      <div class="card popular">
+        <div class="plan-header">
+          <div class="plan-title">30 day Plan <span class="badge">Popular</span></div>
+          <div class="price">₹7,999</div>
+        </div>
+        <div class="plan-desc">Full access for 1 matter, explore freely & compare broadly to decide better.</div>
+        <div class="features-label">You get</div>
+        <ul class="features-list">
+          <li>Unmasked access to all lawyer profiles</li>
+          <li>Full case histories across profiles</li>
+          <li>Compare lawyers</li>
+          <li>Basic filters included</li>
+          <li class="limit">Single user & single case only</li>
+        </ul>
+        <a href="#" class="btn-plan btn-primary">Buy Now</a>
+      </div>
+    </div>
+
+    <div class="ngo-banner">
+      <strong>Discounted pricing</strong> for NGOs, EWS litigants & PIL-based research teams.<br>
+      Please write to us at <a href="mailto:sales@siddh.ai">sales@siddh.ai</a><br>
+      <span style="font-size: 13px; opacity: 0.8;">*Fair usage limits apply on all plans</span>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="plan-header">
+          <div class="plan-title">Team</div>
+          <div class="price">₹24,999<span>/month</span></div>
+        </div>
+        <div class="plan-desc">For small law firms / in-house teams.</div>
+        <div class="features-label">You get</div>
+        <ul class="features-list">
+          <li>Full platform access</li>
+          <li>5 seats included</li>
+          <li>5 cases/month included</li>
+          <li>Advanced filters, PDF exports</li>
+          <li>Priority support, GST invoices</li>
+          <li>Access to admin controls</li>
+        </ul>
+        <a href="#" class="btn-plan btn-outline">Get Platinum</a>
+      </div>
+
+      <div class="card" style="background: #f8fafc;">
+        <div class="plan-header">
+          <div class="plan-title">Enterprise</div>
+          <div class="price">Custom</div>
+        </div>
+        <div class="plan-desc">For mid-large firms / corporate legal teams.</div>
+        <div class="features-label">You get</div>
+        <ul class="features-list">
+          <li>Full platform access</li>
+          <li>Minimum 10 seats & 10 matters/month</li>
+          <li>SSO (SAML), optional SCIM</li>
+          <li>Role based controls (RBAC)</li>
+          <li>Audit logs, API / bulk exports</li>
+          <li>Dedicated CSM & onboarding</li>
+          <li>SLA + DPA + Centralised billing</li>
+        </ul>
+        <a href="mailto:sales@siddh.ai" class="btn-plan btn-primary">Contact Sales</a>
+      </div>
+    </div>
+
+    <div class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <div class="faq-question">Which courts do these plans cover today?</div>
+        <div class="faq-answer">We currently cover only the Supreme Court of India matters. We'll add more courts over time.</div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">What do you mean by "1 case" in the 30-Day Case Pass?</div>
+        <div class="faq-answer">It refers to a specific legal matter type you are researching. Once selected, you can compare lawyers relevant to that matter.</div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">What do I get in the 7-Day Free Preview?</div>
+        <div class="faq-answer">You get access to platform analytics and filters, but lawyer names are masked (hidden) and detailed case lists are locked.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Do you take commissions from lawyers?</div>
+        <div class="faq-answer">No. We are completely independent and do not take commissions or fees from lawyers to list or recommend them.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Can I get a refund?</div>
+        <div class="faq-answer">Refunds are generally not available once a plan is active, as data access is immediate. Please check our Terms of Service for details.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="cta-section">
+    <h2>Referrals can be wrong, data won't be.<br>Pick your lawyer with confidence.</h2>
+    <a href="#" class="cta-btn">Join for 7 days free</a>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a href="#" class="logo" style="display:block; margin-bottom:15px;">siddh.ai</a>
+        <p style="color: #6b7280; line-height: 1.6; max-width: 300px;">
+          Data-driven legal insights for confident decision making.<br><br>
+          Part of Lawraj Pvt. Ltd.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About us</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Disclaimer</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">Report incorrect info</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">API</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2026 Siddh.ai. All rights reserved. Made for the legal community.
+    </div>
+  </footer>
+
+</body>
+</html>
